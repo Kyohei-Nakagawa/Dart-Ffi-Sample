@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-#include <stdio.h>
 #include "hello.h"
 
 int main()
@@ -26,4 +25,20 @@ int sum(int a, int b) {
 
 void print_str(char* str) {
     printf(str);
+}
+
+struct Coordinate create_coordinate(double latitude, double longitude)
+{
+    struct Coordinate coordinate;
+    coordinate.latitude = latitude;
+    coordinate.longitude = longitude;
+    return coordinate;
+}
+
+struct Place create_place(char *name, double latitude, double longitude)
+{
+    struct Place place;
+    place.name = name;
+    place.coordinate = create_coordinate(latitude, longitude);
+    return place;
 }
