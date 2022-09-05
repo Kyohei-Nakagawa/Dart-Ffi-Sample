@@ -4,6 +4,9 @@
 
 #include "hello.h"
 
+struct Coordinate global_coordinate = {0.0, 0.0};
+struct Place global_place = {"NULL", {0.0, 0.0}};
+
 int main()
 {
     hello_world();
@@ -41,4 +44,21 @@ struct Place create_place(char *name, double latitude, double longitude)
     place.name = name;
     place.coordinate = create_coordinate(latitude, longitude);
     return place;
+}
+
+void set_coordinate(struct Coordinate coordinate) {
+    printf("set latitude: %a \n", coordinate.latitude);
+    printf("set longitude: %a \n", coordinate.longitude);
+    global_coordinate = coordinate;
+}
+
+void set_place(struct Place place) {
+    printf("set name: %s \n", place.name);
+    global_place = place;
+}
+
+void print_global_place() {
+    printf("name: %s \n", global_place.name);
+    printf("latitude: %a \n", global_place.coordinate.latitude);
+    printf("longitude: %a \n", global_place.coordinate.longitude);
 }

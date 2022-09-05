@@ -30,17 +30,24 @@ class Place extends ffi.Struct {
   external Coordinate coordinate;
 }
 
-// C function: struct Coordinate create_coordinate(double latitude, double longitude)
 typedef CreateCoordinateNative = Coordinate Function(
     ffi.Double latitude, ffi.Double longitude);
 typedef CreateCoordinate = Coordinate Function(
     double latitude, double longitude);
 
-// C function: struct Place create_place(char *name, double latitude, double longitude)
+typedef SetCoordinateNative = ffi.Void Function(Coordinate coordinate);
+typedef SetCoordinate = void Function(Coordinate coordinate);
+
 typedef CreatePlaceNative = Place Function(
     ffi.Pointer<Utf8> name, ffi.Double latitude, ffi.Double longitude);
 typedef CreatePlace = Place Function(
     ffi.Pointer<Utf8> name, double latitude, double longitude);
+
+typedef SetPlaceNative = ffi.Void Function(Place place);
+typedef SetPlace = void Function(Place place);
+
+typedef PrintPlaceNative = ffi.Void Function();
+typedef PrintPlace = void Function();
 
 void main() {
   // Open the dynamic library
@@ -90,4 +97,18 @@ void main() {
   print(
       'The name of my place is $name at ${coord.latitude}, ${coord.longitude}');
 
+  final setCoordinate =
+      dylib.lookupFunction<SetCoordinateNative, SetCoordinate>(
+          'set_coordinate');
+  setCoordinate(coordinate);
+
+  final setPlace =
+      dylib.lookupFunction<SetPlaceNative, SetPlace>(
+          'set_place');
+  setPlace(place);
+
+  final printPlace =
+      dylib.lookupFunction<PrintPlaceNative, PrintPlace>(
+          'print_global_place');
+  printPlace();
 }

@@ -24,3 +24,6 @@ struct Place
 struct Coordinate __declspec(dllexport) create_coordinate(double latitude, double longitude);
 struct Place __declspec(dllexport) create_place(char *name, double latitude, double longitude);
 
+void __declspec(dllexport) set_coordinate(struct Coordinate coordinate);
+void __declspec(dllexport) set_place(struct Place place);
+void __declspec(dllexport) print_global_place();
